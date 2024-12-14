@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 
@@ -11,35 +11,28 @@ import { setCredentials } from '../slices/authUserSlice.js';
 
 const FormAuthorization = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState(false);
   const [error, setError] = useState(false);
 
   const dispatch = useDispatch();
+
+  const fetchToken = async (formData) => {
+    try {
+      const request = await axios.post('/api/v1/login', formData);
+      dispatch(setCredentials(request.data));
+      window.localStorage.setItem('auth', JSON.stringify(request.data));
+      navigate('/');
+    } catch (e) {
+      setError(e.message);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
-    onSubmit: (values) => setFormData(values), 
+    onSubmit: (values) => fetchToken(values), 
   });
-
-  useEffect(() => {
-    const fetchToken = async () => {
-      try {
-        const request = await axios.post('/api/v1/login', formData);
-        dispatch(setCredentials(request.data));
-        window.localStorage.setItem('auth', JSON.stringify(request.data));
-        navigate('/');
-      } catch (e) {
-        setError(e.message);
-      }
-    };
-
-    if (formData) {
-      fetchToken();
-    }
-  }, [formData, dispatch, navigate]);
 
   return (
     <Form onSubmit={formik.handleSubmit}>
@@ -71,3 +64,5 @@ const FormAuthorization = () => {
 };
 
 export default FormAuthorization;
+
+// клас на ошибку валидации формы

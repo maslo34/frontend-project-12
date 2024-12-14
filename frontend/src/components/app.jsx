@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router';
 
 import NotFound from '../pages/NotFound';
-import Login from '../pages/Login/login';
-import ChatHome from '../pages/chathome/chathome';
+import Login from '../pages/login/login';
+import ChatHome from '../pages/chatHome/chatHome';
 
 const App = () => {
   return (

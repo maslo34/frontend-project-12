@@ -3,13 +3,13 @@
 import { useSelector } from 'react-redux';
 import { selectors } from "../slices/chanelSlice";
 
-const ChanelList = () => {
+const ChanelList = ({hendleClick}) => {
   const chanel = useSelector(selectors.selectAll)
-  console.log(chanel)
+  // console.log(chanel)
   return (
     <div>
       <ul>
-      {chanel.map((el) => <li key={el.id}>{el.name}</li>)}
+      {chanel.map((el) => <li key={el.id} onClick={() => hendleClick(el.id)}>{el.name}</li>)}
       </ul>
     </div>
   )
