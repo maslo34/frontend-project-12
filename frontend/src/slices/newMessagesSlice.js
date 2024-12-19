@@ -2,6 +2,8 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { io } from 'socket.io-client';
 import axios from 'axios';
 
+import { getToken } from '../utils';
+
 const socket = io('/');
 
 export const messageApi = createApi({
@@ -10,8 +12,8 @@ export const messageApi = createApi({
     getMessageApi: builder.query({
       queryFn: async (arg, api) => {
         const state = api.getState();
-        const token = state.auth.token;
-        console.log(api.getState());
+        const token = getToken(state.auth.token);
+        console.log(token);
         try {
           const request = await axios.get('/api/v1/messages', {
             headers: {
@@ -29,9 +31,6 @@ export const messageApi = createApi({
       ) {
         try {
           await cacheDataLoaded;
-          socket.on('connect', () => {
-            console.log('connected to server');
-          });
           socket.on('newMessage', (payload) => {
             updateCachedData((draft) => {
                 draft.push(payload)

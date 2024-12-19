@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import authUserReducer from './authUserSlice.js';
-import chanelReducer from './chanelSlice.js';
-import messageReducer from './messageSlice.js';
 import { messageApi } from './newMessagesSlice.js';
+import { chanelApi } from './newChanelSlice.js';
+import modalReducer from './modalSlice.js'
 
 // const logger = (store) => (next) => (action) => {
 //   console.log('dispatching', action);
@@ -15,10 +15,10 @@ import { messageApi } from './newMessagesSlice.js';
 export default configureStore({
   reducer: {
     auth: authUserReducer,
-    chanel: chanelReducer,
-    message: messageReducer,
+    modal: modalReducer,
     [messageApi.reducerPath]: messageApi.reducer,
+    [chanelApi.reducerPath]: chanelApi.reducer,
     
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([ messageApi.middleware]),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([ messageApi.middleware, chanelApi.middleware]),
 });

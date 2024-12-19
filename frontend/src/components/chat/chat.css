@@ -1,0 +1,10 @@
+.chat-conteiner {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 15;
+    justify-content: space-between;
+}
+
+.chat-list {
+    overflow: auto;
+}

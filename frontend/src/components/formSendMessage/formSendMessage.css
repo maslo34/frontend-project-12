@@ -1,3 +1,9 @@
 .formMessage {
     display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.form-label-message {
+    flex-grow: 5;
 }

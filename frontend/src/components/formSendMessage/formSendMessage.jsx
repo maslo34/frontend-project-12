@@ -6,23 +6,23 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import './formSendMessage.css'
+import './formSendMessage.css';
 
 const FormSendMessage = ({ channelId }) => {
-  console.log(typeof channelId)
-
-  const {username, token} = useSelector((state) => state.auth)
+  const { username } = useSelector((state) => state.auth);
+  
+  const token = useSelector((state) => state.auth.token);
+  
   const sendMessege = async (message) => {
-    console.log(message)
-    const newMessage = { body: message, channelId, username}
+    const newMessage = { body: message, channelId, username };
     try {
       await axios.post('/api/v1/messages', newMessage, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-    } catch(e) {
-      console.log(e)
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -30,22 +30,31 @@ const FormSendMessage = ({ channelId }) => {
     initialValues: {
       message: '',
     },
-    onSubmit: (values) => sendMessege(values.message),
+    onSubmit: (values) => {
+      sendMessege(values.message)
+    },
   });
+
+  const clearInput = (e) => {
+    e.target.form.message.value = '';
+  };
 
   return (
     <Form onSubmit={formik.handleSubmit}>
       <div className="formMessage">
-        <Form.Group>
+        <Form.Group className="form-label-message">
           <Form.Control
             onChange={formik.handleChange}
             type="message"
             id="message"
             name="message"
             placeholder="Ваше сообщение"
+            autoFocus
           ></Form.Control>
         </Form.Group>
-        <Button type="submit">Отправить</Button>
+        <Button onClick={clearInput} type="submit">
+          Отправить
+        </Button>
       </div>
     </Form>
   );

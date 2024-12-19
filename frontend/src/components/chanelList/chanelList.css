@@ -1,0 +1,46 @@
+.chanel-conteiner {
+    flex-grow: 1;
+    background-color: rgb(248, 249, 250);
+
+}
+
+.chanel-label {
+    font-weight: bolder;
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 10px 30px 15px;
+    text-align: center;
+}
+
+.chanel-label h4 {
+  padding-top: 5px;
+  padding-left: 10%;
+  vertical-align: middle;
+}
+
+.chanel-label button {
+  margin: 5px;
+  
+}
+
+.chanel-list {
+  list-style: none;
+  overflow: auto;
+  height: 100%;
+  padding-right: 6%;
+}
+
+.border-none {
+  border: none;
+}
+
+.dropdown {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.noHover{
+  pointer-events: none;
+}
+
+

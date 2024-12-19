@@ -1,62 +1,48 @@
 import { useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+import { useEffect, useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { addChanel } from '../../slices/chanelSlice';
-import { addMessage } from '../../slices/messageSlice';
-import ChanelList from '../../components/chanelList';
+import { setCredentials } from '../../slices/authUserSlice';
+import ChanelList from '../../components/chanelList/chanelList';
 import Chat from '../../components/chat/chat';
+import CustomModal from '../../components/modal/modal';
 
-import './chatHome.css'
+import './chatHome.css';
 
 const ChatHome = () => {
   const navigate = useNavigate();
-  // проверять в сторе auth наличие токена, если нет диспатчить из локал сторедж
-
-  useEffect(() => {
-    const authorizationTokenLocalStorage = window.localStorage.getItem('auth');
-    if (!authorizationTokenLocalStorage) {
-      navigate('/login');
-    }
-  }, [navigate]);
-  
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.token);
-
+  console.log('go');
+  // проверять в сторе auth наличие токена, если нет диспатчить из локал сторедж
+  const { token } = useSelector((state) => state.auth);
+  const modalIsShow = useSelector((state) => state.modal.isShow);
   useEffect(() => {
-    // вынесте общую логику axios запроса в функцию, дергать из utils
-    const fetchCanel = async () => {
-      const request = await axios.get('/api/v1/channels', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      // console.log(request.data)
-      dispatch(addChanel(request.data));
-    };
-    const fetchMessage = async () => {
-      const request = await axios.get('/api/v1/messages', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      dispatch(addMessage(request.data));
-    };
-    fetchCanel();
-    fetchMessage();
-  }, [dispatch, token]);
+    const authorizationTokenLocalStorage = JSON.parse(
+      window.localStorage.getItem('auth')
+    );
+    if (!authorizationTokenLocalStorage && !token) {
+      navigate('/login');
+    } else if (authorizationTokenLocalStorage && !token) {
+      dispatch(setCredentials(authorizationTokenLocalStorage));
+    }
+  }, [navigate, dispatch, token]);
 
-  const [activeChenel, setActiveChenel] = useState('1')
+  const [activeChenel, setActiveChenel] = useState('1');
 
-  const handleActiveChenel = (id) => {
-    setActiveChenel(id)
-  }
+  const handleActiveChenel = useCallback(
+    (id) => {
+      setActiveChenel(id);
+    },
+    [setActiveChenel]
+  );
 
   return (
-    <div className='conteiner'>
-      <h1>Home</h1>
-      <ChanelList hendleClick={handleActiveChenel}/>
+    <div className="page-chat-conteiner shadow">
+      {modalIsShow ? <CustomModal optionsModal={modalIsShow} /> : <></>}
+      <ChanelList
+        hendleClickChanel={handleActiveChenel}
+        activeChenel={activeChenel}
+      />
       <Chat activeChenel={activeChenel} />
     </div>
   );
