@@ -35,7 +35,8 @@ const FormAuthorization = () => {
   });
 
   return (
-    <Form onSubmit={formik.handleSubmit}>
+    <Form 
+      onSubmit={formik.handleSubmit}>
       <h1>Войти</h1>
       <Form.Group className="mb-3">
         <Form.Control

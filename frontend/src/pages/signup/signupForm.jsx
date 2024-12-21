@@ -1,32 +1,38 @@
+import CustomForm from '../../components/newForm';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, Link } from 'react-router';
-
+import { useNavigate } from 'react-router';
 import { setCredentials } from '../../slices/authUserSlice';
 import { registrateFetch } from '../../fetchApi';
-
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import CustomForm from '../../components/newForm';
+import ImageSignUp from './signUpImage.jpg';
+import * as Yup from 'yup';
 
-import ImageLogin from './loginImage.jpg';
-
-
-import './login.css';
-
-const Login = () => {
+const SignupForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const dispatchWrapper = (data) => dispatch(setCredentials(data));
   const [fetchError, setfetchError] = useState(false);
   const hendleFetchError = (err) => setfetchError(err);
 
-  const validationSchema = false;
+  const validationSchema = Yup.object({
+    username: Yup.string()
+      .min(3, 'От 3 до 20 символов')
+      .max(20, 'От 3 до 20 символов')
+      .required('Обязательное поле'),
+    password: Yup.string()
+      .min(6, 'Не менее 6 символов')
+      .required('Обязательное поле'),
+    confirmPassword: Yup.string()
+      .required('Обязательное поле')
+      .oneOf([Yup.ref('password'), null], 'Пароль не совподает'),
+  });
   const dataForm = {
-    formName: 'Войти',
+    formName: 'Регистрация',
     field: [
       {
         name: 'username',
-        placeholder: 'Ваш ник',
+        placeholder: 'Имя пользователя',
         type: 'username',
       },
       {
@@ -34,12 +40,17 @@ const Login = () => {
         placeholder: 'Пароль',
         type: 'password',
       },
+      {
+        name: 'confirmPassword',
+        placeholder: 'Подтвердите пароль',
+        type: 'password',
+      },
     ],
     button: {
       submit: (value) =>
         registrateFetch(
           navigate,
-          'login',
+          'signup',
           value,
           dispatchWrapper,
           hendleFetchError
@@ -49,30 +60,26 @@ const Login = () => {
     initialValues: {
       username: '',
       password: '',
+      confirmPassword: '',
     },
   };
 
   return (
+    
     <Container className="container-fluid heig-100">
       <Row className="justify-content-center align-content-center h-100">
         <Col className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <div>
-                <img
-                  src={ImageLogin}
-                  className="rounded-circle"
-                  alt="Registratiion Avatar"
-                />
-              </div>
+              <img
+                src={ImageSignUp}
+                className="rounded-circle"
+                alt="Registratiion Avatar"
+              />
+            </div>
               <CustomForm dataForm={dataForm} err={fetchError} />
             </Card.Body>
-            <Card.Footer className='card-footer p-4'>
-              <div className='text-center'>
-                <span>Нет аккаунта?</span>
-                <Link to='/signup'>Регистрация</Link>
-              </div>
-            </Card.Footer>
           </Card>
         </Col>
       </Row>
@@ -80,4 +87,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignupForm;

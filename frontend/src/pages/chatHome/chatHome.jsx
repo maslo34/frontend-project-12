@@ -12,11 +12,11 @@ import './chatHome.css';
 const ChatHome = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log('go');
   // проверять в сторе auth наличие токена, если нет диспатчить из локал сторедж
   const { token } = useSelector((state) => state.auth);
   const modalIsShow = useSelector((state) => state.modal.isShow);
   useEffect(() => {
+    console.log('вход')
     const authorizationTokenLocalStorage = JSON.parse(
       window.localStorage.getItem('auth')
     );

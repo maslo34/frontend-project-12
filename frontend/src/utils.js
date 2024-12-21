@@ -4,3 +4,4 @@ export const getToken = (token) => {
     const authorizationTokenLocalStorage = JSON.parse(window.localStorage.getItem('auth'));
     return token || authorizationTokenLocalStorage.token;
 }
+

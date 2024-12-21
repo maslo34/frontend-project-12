@@ -29,7 +29,7 @@ const customFocusInput = () => {
 
 const CustomModal = () => {
   const { refetch } = useGetMessageApiQuery();
-  const customAxios = instanceAxios();
+  const customAxios = instanceAxios('channels');
   const mappingModal = {
     addChanel: {
       metod: 'post',
