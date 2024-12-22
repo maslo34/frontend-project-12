@@ -2,48 +2,45 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router';
 
-import { setCredentials } from '../../slices/authUserSlice';
-import { registrateFetch } from '../../fetchApi';
+import { setCredentials } from '../../../slices/authUserSlice';
+import { fetchToken } from '../../../fetchApi';
 
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import CustomForm from '../../components/newForm';
+import CustomForm from '../../../components/newForm';
 
 import ImageLogin from './loginImage.jpg';
 
-
-import './login.css';
+import { t } from 'i18next';
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const dispatchWrapper = (data) => dispatch(setCredentials(data));
+
   const [fetchError, setfetchError] = useState(false);
+
   const hendleFetchError = (err) => setfetchError(err);
 
   const validationSchema = false;
   const dataForm = {
-    formName: 'Войти',
+    formName: t('loginPage.title'),
     field: [
       {
         name: 'username',
-        placeholder: 'Ваш ник',
+        placeholder: t('loginPage.placeholderUsername'),
         type: 'username',
       },
       {
         name: 'password',
-        placeholder: 'Пароль',
+        placeholder: t('loginPage.placeholderPassword'),
         type: 'password',
       },
     ],
     button: {
       submit: (value) =>
-        registrateFetch(
-          navigate,
-          'login',
-          value,
-          dispatchWrapper,
-          hendleFetchError
-        ),
+        fetchToken(navigate, 'login', value, dispatchWrapper, hendleFetchError),
+      name: t('loginPage.buttonSubmit'),
     },
     validationSchema,
     initialValues: {
@@ -58,7 +55,7 @@ const Login = () => {
         <Col className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
-              <div>
+              <div className="col-12 col-md-5 d-flex align-items-center justify-content-center">
                 <img
                   src={ImageLogin}
                   className="rounded-circle"
@@ -67,10 +64,10 @@ const Login = () => {
               </div>
               <CustomForm dataForm={dataForm} err={fetchError} />
             </Card.Body>
-            <Card.Footer className='card-footer p-4'>
-              <div className='text-center'>
-                <span>Нет аккаунта?</span>
-                <Link to='/signup'>Регистрация</Link>
+            <Card.Footer className="card-footer p-4">
+              <div className="text-center">
+                <span>{t('loginPage.spanNotAccaunt')}</span>
+                <Link to="/signup">{t('loginPage.linkSugnup')}</Link>
               </div>
             </Card.Footer>
           </Card>

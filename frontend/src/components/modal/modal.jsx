@@ -1,132 +1,144 @@
 import * as Yup from 'yup';
-import { Formik, Form, Field } from 'formik';
+import { useFormik } from 'formik';
+import { useEffect, useRef } from 'react';
+import { Form, FormControl, FormGroup } from 'react-bootstrap';
 
-import { activeClassButton } from '../../utils.js';
-import instanceAxios from '../../fetchApi.js';
-import { setOptionModal } from '../../slices/modalSlice.js';
 import { useGetChanelsApiQuery } from '../../slices/newChanelSlice.js';
 import { useGetMessageApiQuery } from '../../slices/newMessagesSlice.js';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { activeClassButton } from '../../utils.js';
+import instanceAxios from '../../fetchApi.js';
+import { setOptionModal } from '../../slices/modalSlice.js';
+import { actualChanelId } from '../../slices/actualChanelSlice.js'
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { t } from 'i18next';
 
-import './modal.css';
-
-const fetchAxios = async (payload, query, id) => {
-  try {
-    console.log(payload, query, id);
-    const request = await query(payload, id);
-    console.log(request.data);
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-const customFocusInput = () => {
-  document.querySelector('.modal-input').focus();
-};
+import { fetchChanel } from '../../fetchApi.js';
 
 const CustomModal = () => {
-  const { refetch } = useGetMessageApiQuery();
-  const customAxios = instanceAxios('channels');
-  const mappingModal = {
-    addChanel: {
-      metod: 'post',
-      title: 'Добавить канал',
-      query: (value) => customAxios.post(id, value),
-    },
-    removeChanel: {
-      metod: 'delit',
-      title: 'Удалить канал',
-      body: 'Уверрены?',
-      query: (value, id) => customAxios.delete(id),
-    },
-    editChanel: {
-      metod: 'patch',
-      title: 'Переименовать канал',
-      query: (value, id) => customAxios.patch(`/${id}`, value),
-    },
-  };
-
+  const refContainer = useRef('');
+  useEffect(() => {
+    refContainer.current.focus();
+  }, []);
+  
   const dispatch = useDispatch();
+  const customAxios = instanceAxios('channels');
+
+  const { data, isLoading } = useGetChanelsApiQuery();
+  const { refetch } = useGetMessageApiQuery();
 
   const modalOption = useSelector((State) => State.modal);
+  const {chanelId} = useSelector((State) => State.actualChanelId);
   const { isShow, type, id, initialValue } = modalOption;
+
+  const arrayUniqChanel = isLoading ? [] : data.map((el) => el.name);
 
   const handleCloseModal = () => {
     dispatch(setOptionModal({ isShow: false }));
   };
-  console.log(mappingModal[type]);
+  const handleNewActualChanel = (chanel) => {
+    const { id, name } = chanel
+    console.log(chanel)
+    dispatch(actualChanelId({chanelId: id, name}))
+  }
 
-  const { data, isLoading } = useGetChanelsApiQuery();
-  const arrayUniqChanel = isLoading ? [] : data.map((el) => el.name);
+  const mappingModal = {
+    addChanel: {
+      metod: 'post',
+      title: t('modal.addChanel'),
+      query: (value) => customAxios.post(id, value),
+    },
+    removeChanel: {
+      metod: 'delit',
+      title: t('modal.removeChanel'),
+      body: t('modal.isDelete'),
+      query: (id) => customAxios.delete(id),
+    },
+    editChanel: {
+      metod: 'patch',
+      title: t('modal.editChanel'),
+      query: (value, id) => customAxios.patch(`/${id}`, value),
+    },
+  };
 
   const validationSchema = Yup.object({
     name: Yup.string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .notOneOf(arrayUniqChanel, 'Введите уникальное имя канала'),
+      .min(3, t('errorValidation.minName'))
+      .max(20, t('errorValidation.maxName'))
+      .notOneOf(arrayUniqChanel, t('errorValidation.uniqNameChanel')),
+  });
+
+  const formik = useFormik({
+    initialValues: { name: initialValue },
+    validationSchema: validationSchema,
+    onSubmit: (value) => {
+      fetchChanel(value, mappingModal[type].query, id, handleNewActualChanel);
+      dispatch(setOptionModal({ isShow: false }));
+    },
   });
 
   return (
-    <Modal show={isShow} onHide={handleCloseModal}>
+    <Modal show={isShow} onHide={handleCloseModal} className="">
       <Modal.Header closeButton>
         <Modal.Title>{mappingModal[type].title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {mappingModal[type].body ? (
-          <div>
-            {mappingModal[type].body}
-            <div className="buttonModalBlock">
-              <Button variant="secondary" onClick={handleCloseModal}>
-                Закрыть
+          <>
+            <p className="lead">{mappingModal[type].body}</p>
+            <div className="d-flex justify-content-end">
+              <Button
+                className="me-2 btn btn-secondary"
+                variant="secondary"
+                onClick={handleCloseModal}
+              >
+                {t('modal.close')}
               </Button>
               <Button
                 onClick={() => {
-                  fetchAxios(id, mappingModal[type].query, id);
+                  fetchChanel(id, mappingModal[type].query, id);
                   dispatch(setOptionModal({ isShow: false }));
+                  id === chanelId && dispatch(actualChanelId({chanelId: '1', name: 'general'}))
                   refetch();
                 }}
                 className={activeClassButton(isShow)}
                 type="submit"
+                variant="danger"
+                ref={refContainer}
               >
-                Отправить
+                {t('modal.send')}
               </Button>
             </div>
-          </div>
+          </>
         ) : (
-          <Formik
-            initialValues={{ name: initialValue }}
-            validationSchema={validationSchema}
-            onSubmit={(value) => {
-              fetchAxios(value, mappingModal[type].query, id);
-              dispatch(setOptionModal({ isShow: false }));
-            }}
-          >
-            {({ errors }) => (
-              <Form>
-                <Field
-                  className={
-                    errors.name
-                      ? 'modal-input mb-2 form-control is-invalid'
-                      : 'modal-input mb-2 form-control'
-                  }
-                  name="name"
-                  innerRef={() => customFocusInput()}
-                />
-                {errors.name ? <div>{errors.name}</div> : null}
-                <div className="buttonModalBlock">
-                  <Button variant="secondary" onClick={handleCloseModal}>
-                    Закрыть
-                  </Button>
-                  <Button className={activeClassButton(isShow)} type="submit">
-                    Отправить
-                  </Button>
-                </div>
-              </Form>
-            )}
-          </Formik>
+          <Form onSubmit={formik.handleSubmit}>
+            <FormGroup>
+              <FormControl
+                className="mb-2 form-control"
+                ref={refContainer}
+                name="name"
+                required=""
+                onChange={formik.handleChange}
+                value={formik.values.name}
+                isInvalid={formik.errors.name}
+              />
+              {formik.errors.name && (
+                <div className="invalid-feedback">{formik.errors.name}</div>
+              )}
+            </FormGroup>
+
+            <div className="d-flex justify-content-end">
+              <Button className='me-2 btn btn-secondary' variant="secondary" onClick={handleCloseModal}>
+                {t('modal.close')}
+              </Button>
+              <Button className={activeClassButton(isShow)} type="submit">
+                {t('modal.send')}
+              </Button>
+            </div>
+          </Form>
         )}
       </Modal.Body>
     </Modal>

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const slice = createSlice({
   name: 'modal',
-  initialState: { isShow: false, modalTitle: 'daw', initialValuesChanel: ''},
+  initialState: { isShow: false },
   reducers: {
     setOptionModal: (state, { payload }) => {
       state.isShow = payload.isShow;

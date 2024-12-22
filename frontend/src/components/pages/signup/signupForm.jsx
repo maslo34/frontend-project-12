@@ -1,12 +1,18 @@
-import CustomForm from '../../components/newForm';
+import * as Yup from 'yup';
+
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { setCredentials } from '../../slices/authUserSlice';
-import { registrateFetch } from '../../fetchApi';
+
+import { setCredentials } from '../../../slices/authUserSlice';
+import { fetchToken } from '../../../fetchApi';
+
+import CustomForm from '../../newForm';
 import { Card, Col, Container, Row } from 'react-bootstrap';
+
+import { t } from 'i18next';
+
 import ImageSignUp from './signUpImage.jpg';
-import * as Yup from 'yup';
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -17,44 +23,45 @@ const SignupForm = () => {
 
   const validationSchema = Yup.object({
     username: Yup.string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .required('Обязательное поле'),
+      .min(3, t('errorValidation.minName'))
+      .max(20, t('errorValidation.maxName'))
+      .required(t('errorValidation.required')),
     password: Yup.string()
-      .min(6, 'Не менее 6 символов')
-      .required('Обязательное поле'),
+      .min(6, t('errorValidation.minPassword'))
+      .required(t('errorValidation.required')),
     confirmPassword: Yup.string()
-      .required('Обязательное поле')
+      .required(t('errorValidation.required'))
       .oneOf([Yup.ref('password'), null], 'Пароль не совподает'),
   });
   const dataForm = {
-    formName: 'Регистрация',
+    formName: t('signupPage.title'),
     field: [
       {
         name: 'username',
-        placeholder: 'Имя пользователя',
+        placeholder: t('signupPage.placeholderUsername'),
         type: 'username',
       },
       {
         name: 'password',
-        placeholder: 'Пароль',
+        placeholder: t('signupPage.placeholderPassword'),
         type: 'password',
       },
       {
         name: 'confirmPassword',
-        placeholder: 'Подтвердите пароль',
+        placeholder: t('signupPage.placeholderconfirmPassword'),
         type: 'password',
       },
     ],
     button: {
       submit: (value) =>
-        registrateFetch(
+        fetchToken(
           navigate,
           'signup',
           value,
           dispatchWrapper,
           hendleFetchError
         ),
+      name: t('signupPage.buttonSubmit'),
     },
     validationSchema,
     initialValues: {
@@ -65,19 +72,18 @@ const SignupForm = () => {
   };
 
   return (
-    
     <Container className="container-fluid heig-100">
       <Row className="justify-content-center align-content-center h-100">
         <Col className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <div>
-              <img
-                src={ImageSignUp}
-                className="rounded-circle"
-                alt="Registratiion Avatar"
-              />
-            </div>
+                <img
+                  src={ImageSignUp}
+                  className="rounded-circle"
+                  alt="Registratiion Avatar"
+                />
+              </div>
               <CustomForm dataForm={dataForm} err={fetchError} />
             </Card.Body>
           </Card>

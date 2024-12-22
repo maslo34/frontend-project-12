@@ -1,27 +1,18 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { io } from 'socket.io-client';
-import axios from 'axios';
-
-import { getToken } from '../utils';
-
-const socket = io('/');
+import instanceAxios from './../fetchApi.js';
 
 export const messageApi = createApi({
   reducerPath: 'messageApi',
   endpoints: (builder) => ({
     getMessageApi: builder.query({
-      queryFn: async (arg, api) => {
-        const state = api.getState();
-        const token = getToken(state.auth.token);
-        console.log(token);
+      queryFn: async () => {
+        const fetchMessage = instanceAxios('messages')
         try {
-          const request = await axios.get('/api/v1/messages', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
+          const request = await fetchMessage.get()
           return { data: request.data };
         } catch (error) {
+          console.log(error)
           return { error };
         }
       },
@@ -29,12 +20,13 @@ export const messageApi = createApi({
         arg,
         { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
       ) {
+        const socket = io('/');
         try {
           await cacheDataLoaded;
           socket.on('newMessage', (payload) => {
             updateCachedData((draft) => {
-                draft.push(payload)
-            })
+              draft.push(payload);
+            });
           });
         } catch {
           await cacheEntryRemoved;
