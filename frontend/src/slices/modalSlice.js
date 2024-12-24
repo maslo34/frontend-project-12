@@ -8,7 +8,8 @@ const slice = createSlice({
       state.isShow = payload.isShow;
       state.type = payload.type;
       state.id = payload.id;
-      state.initialValue = payload.initialValue; 
+      state.initialValue = payload.initialValue;
+      state.toastMessage = payload.toastMessage;
     },
   },
 });

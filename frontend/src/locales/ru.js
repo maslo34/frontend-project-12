@@ -51,6 +51,12 @@ const ruLocales = {
       addChanel: 'Добавить канал',
       editChanel: 'Переименовать канал',
       removeChanel: 'Удалить канал',
+    },
+    toastMessage: {
+      add: 'Канал создан',
+      remove: 'Канал удален',
+      edit: 'Канал переименован',
+      error: 'Ошибка соединения',
     }
   },
 };

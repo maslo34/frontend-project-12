@@ -11,8 +11,8 @@ import { t } from 'i18next';
 const ChanelPanel = () => {
   const { data, error, isLoading } = useGetChanelsApiQuery();
   const dispatch = useDispatch();
-  const optionsModal = (type, id = '', initialValue = '') => {
-    dispatch(setOptionModal({ isShow: true, type, id, initialValue }));
+  const optionsModal = (type, toastMessage, id = '', initialValue = '') => {
+    dispatch(setOptionModal({ isShow: true, type, id, initialValue, toastMessage }));
   };
 
   if (error) {

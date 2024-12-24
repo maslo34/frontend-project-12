@@ -2,6 +2,7 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { Form, FormControl, FormGroup } from 'react-bootstrap';
+import { toast } from 'react-toastify'
 
 import { useGetChanelsApiQuery } from '../../slices/newChanelSlice.js';
 import { useGetMessageApiQuery } from '../../slices/newMessagesSlice.js';
@@ -32,7 +33,7 @@ const CustomModal = () => {
 
   const modalOption = useSelector((State) => State.modal);
   const {chanelId} = useSelector((State) => State.actualChanelId);
-  const { isShow, type, id, initialValue } = modalOption;
+  const { isShow, type, id, initialValue, toastMessage } = modalOption;
 
   const arrayUniqChanel = isLoading ? [] : data.map((el) => el.name);
 
@@ -44,6 +45,8 @@ const CustomModal = () => {
     console.log(chanel)
     dispatch(actualChanelId({chanelId: id, name}))
   }
+
+  const notify = (message) => toast.success(message);
 
   const mappingModal = {
     addChanel: {
@@ -103,6 +106,7 @@ const CustomModal = () => {
                   dispatch(setOptionModal({ isShow: false }));
                   id === chanelId && dispatch(actualChanelId({chanelId: '1', name: 'general'}))
                   refetch();
+                  notify(toastMessage)
                 }}
                 className={activeClassButton(isShow)}
                 type="submit"
@@ -134,7 +138,7 @@ const CustomModal = () => {
               <Button className='me-2 btn btn-secondary' variant="secondary" onClick={handleCloseModal}>
                 {t('modal.close')}
               </Button>
-              <Button className={activeClassButton(isShow)} type="submit">
+              <Button onClick={() => notify(toastMessage)} className={activeClassButton(isShow)} type="submit">
                 {t('modal.send')}
               </Button>
             </div>

@@ -1,8 +1,9 @@
 import { t } from 'i18next';
 
 const ChatMessages = ({ data, isLoading, chanelId }) => {
+  
   return (
-    <div className="chat-messages overflow-auto px-5 ">
+    <div  className="chat-messages overflow-auto px-5 ">
       {isLoading ? (
         <h1>{t('chatHome.loading')}</h1>
       ) : (
@@ -10,7 +11,7 @@ const ChatMessages = ({ data, isLoading, chanelId }) => {
           .filter((message) => message.channelId === chanelId)
           .map((message) => (
             <div key={message.id} className="text-break mb-2">
-              <b>{message.username}</b>: {message.body}
+              <b >{message.username}</b>: {message.body}
             </div>
           ))
       )}

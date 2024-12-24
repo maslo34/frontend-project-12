@@ -22,10 +22,10 @@ const DropDownChanel = ({
       <Dropdown.Toggle split variant={variant} className="border-none" />
 
       <Dropdown.Menu>
-        <Dropdown.Item onClick={() => handleModal('removeChanel', id)}>
+        <Dropdown.Item onClick={() => handleModal('removeChanel', t('toastMessage.remove'), id)}>
           {t('chatHome.delete')}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => handleModal('editChanel', id, name)}>
+        <Dropdown.Item onClick={() => handleModal('editChanel', t('toastMessage.edit'),id, name)}>
           {t('chatHome.edit')}
         </Dropdown.Item>
       </Dropdown.Menu>

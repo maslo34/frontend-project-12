@@ -2,8 +2,10 @@
 import axios from 'axios';
 import i18next from './i18n';
 import { getToken } from './utils';
+import { toast } from 'react-toastify';
 
 i18next.t('my.key');
+const notify = () => toast.error(i18next.t('toastMessage.error'));
 
 export default (path) => {
   try {
@@ -34,7 +36,7 @@ export const fetchToken = async (navigate, path, body, dispath, err) => {
         err(i18next.t('errorFetch.duplicate'));
         break;
       default:
-        err(e.message)
+        notify()
     }
   }
 };
@@ -52,7 +54,7 @@ export const sendMessege = async (message, channelId, username) => {
   }
 };
 
-export const fetchChanel = async (payload, query, id, handleNewActualChanel) => {
+export const fetchChanel = async (payload, query, id, handleNewActualChanel = 1) => {
   try {
     console.log(payload, query, id);
     const request = await query(payload, id);

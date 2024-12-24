@@ -10,7 +10,7 @@ const ChanelHeader = ({ handleModal }) => {
       <b>{t('chatHome.chanel')}</b>
       <Button
         className="p-0 text-primary btn btn-group-vertical"
-        onClick={() => handleModal('addChanel')}
+        onClick={() => handleModal('addChanel', t('toastMessage.add'))}
         variant="Light"
         size="sm"
       >

@@ -17,7 +17,13 @@ const FormSendMessage = ({ channelId }) => {
       message: '',
     },
     onSubmit: (values) => {
-      sendMessege(values.message, channelId, username);
+      !!values.message && sendMessege(values.message, channelId, username);
+      values.message = '';
+      // if (values.message !== '') {
+      //   console.log(values)
+      //   sendMessege(values.message, channelId, username);
+      //   values.message = '';
+      // }
     },
   });
 
@@ -26,6 +32,7 @@ const FormSendMessage = ({ channelId }) => {
       <Form.Group className="input-group has-validation">
         <Form.Control
           onChange={formik.handleChange}
+          value={formik.values.body}
           type="message"
           id="message"
           name="message"
