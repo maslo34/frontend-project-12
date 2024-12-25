@@ -15,7 +15,10 @@ const CustomForm = ({ dataForm, err }) => {
     onSubmit: (value) => button.submit(value),
   });
   return (
-    <Form className="col-12 col-md-7 mt-3 mt-md-0">
+    <Form
+      onSubmit={formik.handleSubmit}
+      className="col-12 col-md-7 mt-3 mt-md-0"
+    >
       <h1 className="text-center mb-4">{formName}</h1>
       {field.map((el, id) => {
         return (
@@ -40,11 +43,7 @@ const CustomForm = ({ dataForm, err }) => {
           </FormGroup>
         );
       })}
-      <Button
-        className="w-100"
-        variant="outline-primary"
-        onClick={formik.handleSubmit}
-      >
+      <Button className="w-100" variant="outline-primary" type="submit">
         {button.name}
       </Button>
     </Form>
