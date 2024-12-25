@@ -1,12 +1,13 @@
 import { Routes, Route } from 'react-router';
 import { BrowserRouter } from 'react-router';
+import { ToastContainer } from 'react-toastify';
 
-import NotFound from './pages/NotFound';
-import Login from './pages/login/login';
-import ChatHome from './pages/chatHome/chatHome';
-import SignupForm from './pages/signup/signupForm';
+import NotFound from './components/pages/NotFound';
+import Login from './components/pages/login/login';
+import ChatHome from './components/pages/chatHome/chatHome';
+import SignupForm from './components/pages/signup/signupForm';
 
-import NavBar from './nav';
+import NavBar from './components/nav';
 
 const RoutesApp = () => {
   return (
@@ -18,6 +19,7 @@ const RoutesApp = () => {
         <Route path="*" element={<NotFound />} />
         <Route path="/signup" element={<SignupForm />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 };

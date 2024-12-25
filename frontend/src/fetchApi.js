@@ -1,6 +1,6 @@
 // обертка над аксиос axios instanse
 import axios from 'axios';
-import i18next from './init';
+import i18next from './i18n';
 import { getToken } from './utils';
 import { toast } from 'react-toastify';
 
