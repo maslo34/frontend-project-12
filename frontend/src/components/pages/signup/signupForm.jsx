@@ -31,7 +31,7 @@ const SignupForm = () => {
       .required(t('errorValidation.required')),
     confirmPassword: Yup.string()
       .required(t('errorValidation.required'))
-      .oneOf([Yup.ref('password'), null], 'Пароль не совподает'),
+      .oneOf([Yup.ref('password'), null], t('errorValidation.oneof')),
   });
   const dataForm = {
     formName: t('signupPage.title'),
