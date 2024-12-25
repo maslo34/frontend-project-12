@@ -22,11 +22,7 @@ const FormSendMessage = ({ channelId }) => {
       const cleanedMessage = leoProfanity.clean(values.message);
       !!values.message && sendMessege(cleanedMessage, channelId, username);
       values.message = '';
-      // if (values.message !== '') {
-      //   console.log(values)
-      //   sendMessege(values.message, channelId, username);
-      //   values.message = '';
-      // }
+      
     },
   });
 
@@ -36,6 +32,7 @@ const FormSendMessage = ({ channelId }) => {
         <Form.Control
           onChange={formik.handleChange}
           value={formik.values.body}
+          aria-label="Новое сообщение"
           type="message"
           id="message"
           name="message"
