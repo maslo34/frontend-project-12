@@ -10,7 +10,7 @@ const ruLocales = {
     },
     loginPage: {
       title: 'Войти',
-      placeholderUsername: 'Имя пользователя',
+      placeholderUsername: 'Ваш ник',
       placeholderPassword: 'Пароль',
       buttonSubmit: 'Войти',
       linkSugnup: 'Регистрация',
