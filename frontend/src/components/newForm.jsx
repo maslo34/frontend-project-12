@@ -38,11 +38,17 @@ const CustomForm = ({ dataForm, err }) => {
             />
             <FormLabel htmlFor={el.name}>{el.placeholder}</FormLabel>
             <Form.Control.Feedback type="invalid" className="invalid-tooltip">
-              {formik.errors[el.name] || err}
+              {formik.errors[el.name]}
             </Form.Control.Feedback>
+            {id === 0 && (
+              <Form.Control.Feedback type="invalid" className="invalid-tooltip">
+                {err}
+              </Form.Control.Feedback>
+            )}
           </FormGroup>
         );
       })}
+
       <Button className="w-100" variant="outline-primary" type="submit">
         {button.name}
       </Button>
