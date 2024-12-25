@@ -44,6 +44,7 @@ const ruLocales = {
       messageFormPlaceholder: 'Введите сообщение...',
     },
     modal: {
+      labelName: 'Имя канала',
       send: 'Отправить',
       delete: 'Удалить',
       close: 'Закрыть',

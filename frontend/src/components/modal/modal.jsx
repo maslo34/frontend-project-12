@@ -132,6 +132,7 @@ const CustomModal = () => {
                 value={formik.values.name}
                 isInvalid={formik.errors.name}
               />
+               <Form.Label className='visually-hidden' for='name'>{t('modal.labelName')}</Form.Label>
               {formik.errors.name && (
                 <div className="invalid-feedback">{formik.errors.name}</div>
               )}
