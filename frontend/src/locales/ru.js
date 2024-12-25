@@ -34,6 +34,7 @@ const ruLocales = {
     },
     chatHome: {
       chanel: 'Каналы',
+      dropdownButton: 'Управление каналом',
       loading: 'Loading',
       delete: 'Удалить',
       edit: 'Переименовать',
