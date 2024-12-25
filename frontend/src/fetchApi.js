@@ -1,6 +1,6 @@
 // обертка над аксиос axios instanse
 import axios from 'axios';
-import i18next from './i18n';
+import i18next from './init';
 import { getToken } from './utils';
 import { toast } from 'react-toastify';
 
@@ -36,7 +36,7 @@ export const fetchToken = async (navigate, path, body, dispath, err) => {
         err(i18next.t('errorFetch.duplicate'));
         break;
       default:
-        notify()
+        notify();
     }
   }
 };
@@ -54,11 +54,16 @@ export const sendMessege = async (message, channelId, username) => {
   }
 };
 
-export const fetchChanel = async (payload, query, id, handleNewActualChanel = 1) => {
+export const fetchChanel = async (
+  payload,
+  query,
+  id,
+  handleNewActualChanel = 1
+) => {
   try {
     console.log(payload, query, id);
     const request = await query(payload, id);
-    handleNewActualChanel(request.data)
+    handleNewActualChanel(request.data);
     console.log(request.data);
   } catch (e) {
     console.log(e);

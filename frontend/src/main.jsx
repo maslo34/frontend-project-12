@@ -10,7 +10,7 @@ import store from './slices/index.js';
 
 import './index.css';
 
-import './i18n.js';
+import './init.js';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

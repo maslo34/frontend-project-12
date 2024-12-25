@@ -1,3 +1,5 @@
+import leoProfanity from 'leo-profanity';
+
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 
@@ -17,7 +19,8 @@ const FormSendMessage = ({ channelId }) => {
       message: '',
     },
     onSubmit: (values) => {
-      !!values.message && sendMessege(values.message, channelId, username);
+      const cleanedMessage = leoProfanity.clean(values.message);
+      !!values.message && sendMessege(cleanedMessage, channelId, username);
       values.message = '';
       // if (values.message !== '') {
       //   console.log(values)

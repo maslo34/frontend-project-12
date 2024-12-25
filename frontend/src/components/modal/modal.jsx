@@ -2,7 +2,8 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { Form, FormControl, FormGroup } from 'react-bootstrap';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 
 import { useGetChanelsApiQuery } from '../../slices/newChanelSlice.js';
 import { useGetMessageApiQuery } from '../../slices/newMessagesSlice.js';
@@ -78,7 +79,9 @@ const CustomModal = () => {
     initialValues: { name: initialValue },
     validationSchema: validationSchema,
     onSubmit: (value) => {
-      fetchChanel(value, mappingModal[type].query, id, handleNewActualChanel);
+      console.log(value)
+      const cleanChanel = leoProfanity.clean(value.name)
+      fetchChanel({name: cleanChanel}, mappingModal[type].query, id, handleNewActualChanel);
       dispatch(setOptionModal({ isShow: false }));
     },
   });
