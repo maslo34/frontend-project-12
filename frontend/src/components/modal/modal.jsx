@@ -23,7 +23,9 @@ import { fetchChanel } from '../../fetchApi.js';
 const CustomModal = () => {
   const refContainer = useRef('');
   useEffect(() => {
+    console.log(refContainer.current)
     refContainer.current.focus();
+    refContainer.current.select()
   }, []);
   
   const dispatch = useDispatch();
