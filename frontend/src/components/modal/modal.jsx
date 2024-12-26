@@ -4,29 +4,25 @@ import { useEffect, useRef } from 'react';
 import { Form, FormControl, FormGroup } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
-
-import { useGetChanelsApiQuery } from '../../slices/newChanelSlice.js';
-import { useGetMessageApiQuery } from '../../slices/newMessagesSlice.js';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { activeClassButton } from '../../utils.js';
-import instanceAxios from '../../fetchApi.js';
-import { setOptionModal } from '../../slices/modalSlice.js';
-import { actualChanelId } from '../../slices/actualChanelSlice.js'
-
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { t } from 'i18next';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchChanel } from '../../fetchApi.js';
+import { useGetChanelsApiQuery } from '../../slices/newChanelSlice.js';
+import { useGetMessageApiQuery } from '../../slices/newMessagesSlice.js';
+import { setOptionModal } from '../../slices/modalSlice.js';
+import { actualChanelId } from '../../slices/actualChanelSlice.js';
+import { activeClassButton } from '../../utils.js';
+import instanceAxios, { fetchChanel } from '../../fetchApi.js';
 
 const CustomModal = () => {
   const refContainer = useRef('');
   useEffect(() => {
-    console.log(refContainer.current)
+    console.log(refContainer.current);
     refContainer.current.focus();
   }, []);
-  
+
   const dispatch = useDispatch();
   const customAxios = instanceAxios('channels');
 
@@ -34,7 +30,7 @@ const CustomModal = () => {
   const { refetch } = useGetMessageApiQuery();
 
   const modalOption = useSelector((State) => State.modal);
-  const {chanelId} = useSelector((State) => State.actualChanelId);
+  const { chanelId } = useSelector((State) => State.actualChanelId);
   const { isShow, type, id, initialValue, toastMessage } = modalOption;
 
   const arrayUniqChanel = isLoading ? [] : data.map((el) => el.name);
@@ -43,10 +39,10 @@ const CustomModal = () => {
     dispatch(setOptionModal({ isShow: false }));
   };
   const handleNewActualChanel = (chanel) => {
-    const { id, name } = chanel
-    console.log(chanel)
-    dispatch(actualChanelId({chanelId: id, name}))
-  }
+    const { id, name } = chanel;
+    console.log(chanel);
+    dispatch(actualChanelId({ chanelId: id, name }));
+  };
 
   const notify = (message) => toast.success(message);
 
@@ -81,9 +77,14 @@ const CustomModal = () => {
     initialValues: { name: initialValue },
     validationSchema: validationSchema,
     onSubmit: (value) => {
-      console.log(value)
-      const cleanChanel = leoProfanity.clean(value.name)
-      fetchChanel({name: cleanChanel}, mappingModal[type].query, id, handleNewActualChanel);
+      console.log(value);
+      const cleanChanel = leoProfanity.clean(value.name);
+      fetchChanel(
+        { name: cleanChanel },
+        mappingModal[type].query,
+        id,
+        handleNewActualChanel
+      );
       dispatch(setOptionModal({ isShow: false }));
     },
   });
@@ -109,9 +110,12 @@ const CustomModal = () => {
                 onClick={() => {
                   fetchChanel(id, mappingModal[type].query, id);
                   dispatch(setOptionModal({ isShow: false }));
-                  id === chanelId && dispatch(actualChanelId({chanelId: '1', name: 'general'}))
+                  id === chanelId &&
+                    dispatch(
+                      actualChanelId({ chanelId: '1', name: 'general' })
+                    );
                   refetch();
-                  notify(toastMessage)
+                  notify(toastMessage);
                 }}
                 className={activeClassButton(isShow)}
                 type="submit"
@@ -135,17 +139,27 @@ const CustomModal = () => {
                 value={formik.values.name}
                 isInvalid={formik.errors.name}
               />
-               <Form.Label className='visually-hidden' for='name'>{t('modal.labelName')}</Form.Label>
+              <Form.Label className="visually-hidden" for="name">
+                {t('modal.labelName')}
+              </Form.Label>
               {formik.errors.name && (
                 <div className="invalid-feedback">{formik.errors.name}</div>
               )}
             </FormGroup>
 
             <div className="d-flex justify-content-end">
-              <Button className='me-2 btn btn-secondary' variant="secondary" onClick={handleCloseModal}>
+              <Button
+                className="me-2 btn btn-secondary"
+                variant="secondary"
+                onClick={handleCloseModal}
+              >
                 {t('modal.close')}
               </Button>
-              <Button onClick={() => notify(toastMessage)} className={activeClassButton(isShow)} type="submit">
+              <Button
+                onClick={() => notify(toastMessage)}
+                className={activeClassButton(isShow)}
+                type="submit"
+              >
                 {t('modal.send')}
               </Button>
             </div>

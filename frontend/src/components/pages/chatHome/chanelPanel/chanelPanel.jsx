@@ -12,7 +12,9 @@ const ChanelPanel = () => {
   const { data, error, isLoading } = useGetChanelsApiQuery();
   const dispatch = useDispatch();
   const optionsModal = (type, toastMessage, id = '', initialValue = '') => {
-    dispatch(setOptionModal({ isShow: true, type, id, initialValue, toastMessage }));
+    dispatch(
+      setOptionModal({ isShow: true, type, id, initialValue, toastMessage })
+    );
   };
 
   if (error) {
