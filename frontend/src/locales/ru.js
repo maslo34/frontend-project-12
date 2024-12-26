@@ -56,7 +56,7 @@ const ruLocales = {
     },
     toastMessage: {
       add: 'Канал создан',
-      remove: 'Канал удален',
+      remove: 'Канал удалён',
       edit: 'Канал переименован',
       error: 'Ошибка соединения',
     }
