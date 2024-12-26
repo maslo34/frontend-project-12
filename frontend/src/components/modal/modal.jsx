@@ -130,6 +130,7 @@ const CustomModal = () => {
                 className="mb-2 form-control"
                 ref={refContainer}
                 name="name"
+                id="name"
                 required=""
                 onChange={formik.handleChange}
                 value={formik.values.name}
