@@ -10,9 +10,9 @@ const DropDownChanel = ({
 }) => {
   const variant = id === currentChanelId ? 'secondary' : 'light';
   return (
-    <Dropdown className="border-none w-100 text-start" as={ButtonGroup}>
+    <Dropdown className="d-flex" as={ButtonGroup}>
       <Button
-        className="border-none w-100 text-start"
+        className="w-100 rounded-0 text-start text-truncate"
         variant={variant}
         onClick={() => handleClick(id, name)}
       >
