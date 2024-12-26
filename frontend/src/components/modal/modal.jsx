@@ -25,7 +25,6 @@ const CustomModal = () => {
   useEffect(() => {
     console.log(refContainer.current)
     refContainer.current.focus();
-    refContainer.current.select()
   }, []);
   
   const dispatch = useDispatch();
