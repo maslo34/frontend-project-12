@@ -72,6 +72,7 @@ const CustomModal = () => {
     name: Yup.string()
       .min(3, t('errorValidation.minName'))
       .max(20, t('errorValidation.maxName'))
+      .required(t('errorValidation.required'))
       .notOneOf(arrayUniqChanel, t('errorValidation.uniqNameChanel')),
   });
 
