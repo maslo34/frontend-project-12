@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { setOptionModal } from '../../../../slices/modalSlice.js';
+import { openModal } from '../../../../slices/modalSlice.js';
 import { useGetChanelsApiQuery } from '../../../../slices/newChanelSlice.js';
 
 import ChanelButton from '../chanelButton/chanelButton.jsx';
@@ -13,7 +13,7 @@ const ChanelPanel = () => {
   const dispatch = useDispatch();
   const optionsModal = (type, toastMessage, id = '', initialValue = '') => {
     dispatch(
-      setOptionModal({ isShow: true, type, id, initialValue, toastMessage })
+      openModal({ isShow: true, type, id, initialValue, toastMessage })
     );
   };
 

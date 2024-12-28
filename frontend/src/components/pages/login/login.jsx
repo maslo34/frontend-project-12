@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router';
 
-import { setCredentials } from '../../../slices/authUserSlice';
+import { login } from '../../../slices/authUserSlice';
 import { fetchToken } from '../../../fetchApi';
 
 import { Card, Col, Container, Row } from 'react-bootstrap';
@@ -16,7 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const dispatchWrapper = (data) => dispatch(setCredentials(data));
+  const dispatchWrapper = (data) => dispatch(login(data));
 
   const [fetchError, setfetchError] = useState(false);
 

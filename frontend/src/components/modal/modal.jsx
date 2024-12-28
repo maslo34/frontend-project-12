@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { useGetChanelsApiQuery } from '../../slices/newChanelSlice.js';
 import { useGetMessageApiQuery } from '../../slices/newMessagesSlice.js';
-import { setOptionModal } from '../../slices/modalSlice.js';
+import { closeModal } from '../../slices/modalSlice.js';
 import { actualChanelId } from '../../slices/actualChanelSlice.js';
 import { activeClassButton } from '../../utils.js';
 import instanceAxios, { fetchChanel } from '../../fetchApi.js';
@@ -31,12 +31,18 @@ const CustomModal = () => {
 
   const modalOption = useSelector((State) => State.modal);
   const { chanelId } = useSelector((State) => State.actualChanelId);
-  const { isShow, type, id, initialValue, toastMessage } = modalOption;
+  const {
+    isShow,
+    type,
+    id,
+    initialValue,
+    toastMessage,
+  } = modalOption;
 
   const arrayUniqChanel = isLoading ? [] : data.map((el) => el.name);
 
   const handleCloseModal = () => {
-    dispatch(setOptionModal({ isShow: false }));
+    dispatch(closeModal({ isShow: false }));
   };
   const handleNewActualChanel = (chanel) => {
     const { id, name } = chanel;
@@ -75,17 +81,12 @@ const CustomModal = () => {
 
   const formik = useFormik({
     initialValues: { name: initialValue },
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit: (value) => {
       console.log(value);
       const cleanChanel = leoProfanity.clean(value.name);
-      fetchChanel(
-        { name: cleanChanel },
-        mappingModal[type].query,
-        id,
-        handleNewActualChanel
-      );
-      dispatch(setOptionModal({ isShow: false }));
+      fetchChanel({ name: cleanChanel }, mappingModal[type].query, id, handleNewActualChanel);
+      handleCloseModal()
     },
   });
 
@@ -109,11 +110,8 @@ const CustomModal = () => {
               <Button
                 onClick={() => {
                   fetchChanel(id, mappingModal[type].query, id);
-                  dispatch(setOptionModal({ isShow: false }));
-                  id === chanelId &&
-                    dispatch(
-                      actualChanelId({ chanelId: '1', name: 'general' })
-                    );
+                  handleCloseModal()
+                  id === chanelId && dispatch(actualChanelId({ chanelId: '1', name: 'general' }));
                   refetch();
                   notify(toastMessage);
                 }}

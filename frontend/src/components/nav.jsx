@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { setCredentials } from '../slices/authUserSlice';
+import { logout } from '../slices/authUserSlice';
 
 import { Container, Button } from 'react-bootstrap';
 
@@ -14,7 +14,7 @@ const NavBar = () => {
   const dispath = useDispatch();
   const logOut = () => {
     window.localStorage.removeItem('auth');
-    dispath(setCredentials({ token: '', username: '' }));
+    dispath(logout());
     navigate('login');
   };
 

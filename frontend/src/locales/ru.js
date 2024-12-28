@@ -6,7 +6,7 @@ const ruLocales = {
       placeholderUsername: 'Имя пользователя',
       placeholderPassword: 'Пароль',
       placeholderconfirmPassword: 'Подтвердите пароль',
-      buttonSubmit: 'Зарегистрироваться'
+      buttonSubmit: 'Зарегистрироваться',
     },
     loginPage: {
       title: 'Войти',
@@ -14,7 +14,7 @@ const ruLocales = {
       placeholderPassword: 'Пароль',
       buttonSubmit: 'Войти',
       linkSugnup: 'Регистрация',
-      spanNotAccaunt: 'Нет аккаунта?'
+      spanNotAccaunt: 'Нет аккаунта?',
     },
     errorValidation: {
       minName: 'От 3 до 20 символов',
@@ -22,7 +22,7 @@ const ruLocales = {
       maxName: 'От 3 до 20 символов',
       required: 'Обязательное поле',
       oneof: 'Пароли должны совпадать',
-      uniqNameChanel: 'Введите уникальное имя канала'
+      uniqNameChanel: 'Введите уникальное имя канала',
     },
     errorFetch: {
       noValidUsername: 'Неверные имя пользователя или пароль',
@@ -59,7 +59,7 @@ const ruLocales = {
       remove: 'Канал удалён',
       edit: 'Канал переименован',
       error: 'Ошибка соединения',
-    }
+    },
   },
 };
 

@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setCredentials } from '../../../slices/authUserSlice';
+import { login } from '../../../slices/authUserSlice';
 import ChanelPanel from './chanelPanel/chanelPanel';
 import ChatPanel from './chatPanel/chatPanel';
 import CustomModal from '../../modal/modal';
@@ -21,7 +21,7 @@ const ChatHome = () => {
     if (!authorizationTokenLocalStorage && !token) {
       navigate('/login');
     } else if (authorizationTokenLocalStorage && !token) {
-      dispatch(setCredentials(authorizationTokenLocalStorage));
+      dispatch(login(authorizationTokenLocalStorage));
     }
   }, [navigate, dispatch, token]);
 
