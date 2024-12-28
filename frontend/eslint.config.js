@@ -34,6 +34,12 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      'import/no-useless-path-segments': [
+        'error',
+        {
+          noUselessIndex: true,
+        },
+      ],
     },
   },
 ];

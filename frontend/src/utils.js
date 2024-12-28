@@ -1,7 +1,7 @@
 export const activeClassButton = (flag) => (flag ? 'active' : 'disabled');
 
 export const getToken = () => {
-  const authorizationTokenLocalStorage = JSON.parse( window.localStorage.getItem('auth'));
+  const authorizationTokenLocalStorage = JSON.parse(window.localStorage.getItem('auth'));
   return authorizationTokenLocalStorage.token;
 };
 

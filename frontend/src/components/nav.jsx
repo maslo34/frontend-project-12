@@ -1,12 +1,9 @@
 import { Link, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
+import { Container, Button } from 'react-bootstrap';
 import { t } from 'i18next';
 
 import { logout } from '../slices/authUserSlice';
-
-import { Container, Button } from 'react-bootstrap';
-
-
 
 const NavBar = () => {
   const authorizationTokenLocalStorage = JSON.parse(window.localStorage.getItem('auth'));

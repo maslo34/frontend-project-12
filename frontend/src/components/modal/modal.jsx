@@ -43,9 +43,7 @@ const CustomModal = () => {
     dispatch(closeModal({ isShow: false }));
   };
   const handleNewActualChanel = (chanel) => {
-    const { id, name } = chanel;
-    console.log(chanel);
-    dispatch(actualChanelId({ chanelId: id, name }));
+    dispatch(actualChanelId({ chanelId: chanel.id, name: chanel.name }));
   };
 
   const notify = (message) => toast.success(message);
@@ -108,7 +106,7 @@ const CustomModal = () => {
                 onClick={() => {
                   fetchChanel(id, mappingModal[type].query, id);
                   handleCloseModal();
-                  if (id === chanelId) {dispatch(actualChanelId({ chanelId: '1', name: 'general' }))};
+                  if (id === chanelId) { dispatch(actualChanelId({ chanelId: '1', name: 'general' })); }
                   refetch();
                   notify(toastMessage);
                 }}

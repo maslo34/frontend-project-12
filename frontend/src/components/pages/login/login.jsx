@@ -6,7 +6,7 @@ import {
   Card,
   Col,
   Container,
-  Row
+  Row,
 } from 'react-bootstrap';
 
 import { login } from '../../../slices/authUserSlice';
@@ -15,7 +15,6 @@ import { fetchToken } from '../../../fetchApi';
 import CustomForm from '../../../components/newForm';
 
 import ImageLogin from './loginImage.jpg';
-
 
 const Login = () => {
   const navigate = useNavigate();

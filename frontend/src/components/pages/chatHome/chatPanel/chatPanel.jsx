@@ -15,24 +15,24 @@ const ChatPanel = () => {
     return <div>{t('chatHome.error')}</div>;
   }
   return (
-      <div className="d-flex flex-column h-100">
-        {!isLoading && (
-          <ChatPanelHeader
-            data={data}
-            currentName={name}
-            currentId={chanelId}
-          />
-        )}
-        <ChatMessages
-          chanelId={chanelId}
+    <div className="d-flex flex-column h-100">
+      {!isLoading && (
+        <ChatPanelHeader
           data={data}
-          error={error}
-          isLoading={isLoading}
+          currentName={name}
+          currentId={chanelId}
         />
-        <div className="mt-auto px-5 py-3">
-          <FormSendMessage channelId={chanelId} />
-        </div>
+      )}
+      <ChatMessages
+        chanelId={chanelId}
+        data={data}
+        error={error}
+        isLoading={isLoading}
+      />
+      <div className="mt-auto px-5 py-3">
+        <FormSendMessage channelId={chanelId} />
       </div>
+    </div>
   );
 };
 

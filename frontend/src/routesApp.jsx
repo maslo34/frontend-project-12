@@ -9,16 +9,16 @@ import SignupForm from './components/pages/signup/signupForm';
 import NavBar from './components/nav';
 
 const RoutesApp = () => (
-    <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<ChatHome />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
-        <Route path="/signup" element={<SignupForm />} />
-      </Routes>
-      <ToastContainer />
-    </BrowserRouter>
-  );
+  <BrowserRouter>
+    <NavBar />
+    <Routes>
+      <Route path="/" element={<ChatHome />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="*" element={<NotFound />} />
+      <Route path="/signup" element={<SignupForm />} />
+    </Routes>
+    <ToastContainer />
+  </BrowserRouter>
+);
 
 export default RoutesApp;

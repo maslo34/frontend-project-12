@@ -31,7 +31,7 @@ const ChanelPanel = () => {
         <h1>{t('chatHome.loading')}</h1>
       ) : (
         <Nav
-          as='ul'
+          as="ul"
           className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
         >
           {data.map((chanel) => (

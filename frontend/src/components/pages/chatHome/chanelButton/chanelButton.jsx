@@ -9,28 +9,30 @@ const ChanelButton = ({ chanel, handleModal }) => {
   const dispatch = useDispatch();
   const { id, name, removable } = chanel;
   const { chanelId } = useSelector((state) => state.actualChanelId);
-  const handleClick = (chanelId, chanelName) => {
-    dispatch(actualChanelId({ chanelId, name: chanelName }));
+  const handleClick = (idChanel, chanelName) => {
+    dispatch(actualChanelId({ chanelId: idChanel, name: chanelName }));
   };
 
   const variant = id === chanelId ? 'secondary' : 'light';
-  return !removable ? (
-    <Button
-      variant={variant}
-      className="w-100 rounded-0 text-start"
-      onClick={() => handleClick(id, name)}
-    >
-      <span className="me-1">#</span>
-      {name}
-    </Button>
-  ) : (
-    <DropDownChanel
-      name={name}
-      id={id}
-      handleClick={handleClick}
-      currentChanelId={chanelId}
-      handleModal={handleModal}
-    />
+  return (
+    !removable ? (
+      <Button
+        variant={variant}
+        className="w-100 rounded-0 text-start"
+        onClick={() => handleClick(id, name)}
+      >
+        <span className="me-1">#</span>
+        {name}
+      </Button>
+    ) : (
+      <DropDownChanel
+        name={name}
+        id={id}
+        handleClick={handleClick}
+        currentChanelId={chanelId}
+        handleModal={handleModal}
+      />
+    )
   );
 };
 

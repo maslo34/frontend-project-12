@@ -7,7 +7,7 @@ import {
   Card,
   Col,
   Container,
-  Row
+  Row,
 } from 'react-bootstrap';
 
 import { t } from 'i18next';
@@ -59,12 +59,12 @@ const SignupForm = () => {
     ],
     button: {
       submit: (value) => fetchToken(
-          navigate,
-          'signup',
-          value,
-          dispatchWrapper,
-          hendleFetchError,
-        ),
+        navigate,
+        'signup',
+        value,
+        dispatchWrapper,
+        hendleFetchError,
+      ),
       name: t('signupPage.buttonSubmit'),
     },
     validationSchema,

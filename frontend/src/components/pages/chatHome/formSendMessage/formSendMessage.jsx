@@ -1,14 +1,16 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
+
 import leoProfanity from 'leo-profanity';
 import { t } from 'i18next';
 
 import { useFormik } from 'formik';
 import { useSelector } from 'react-redux';
 
-import { sendMessege } from '../../../../fetchApi';
-import { clearInput } from '../../../../utils';
-
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+
+import { sendMessege } from '../../../../fetchApi';
+import { clearInput } from '../../../../utils';
 
 const FormSendMessage = ({ channelId }) => {
   const { username } = useSelector((state) => state.auth);
@@ -20,7 +22,7 @@ const FormSendMessage = ({ channelId }) => {
     onSubmit: (values) => {
       const trimMessage = values.message.trim();
       const cleanedMessage = leoProfanity.clean(values.message);
-      if (trimMessage) {sendMessege(cleanedMessage, channelId, username)};
+      if (trimMessage) { sendMessege(cleanedMessage, channelId, username); }
       values.message = '';
     },
   });
@@ -39,8 +41,8 @@ const FormSendMessage = ({ channelId }) => {
           autoFocus
         />
         <Button
-        onClick={clearInput}
-        type="submit"
+          onClick={clearInput}
+          type="submit"
         >
           {t('chatHome.sendMessage')}
         </Button>
