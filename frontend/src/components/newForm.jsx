@@ -50,9 +50,8 @@ const CustomForm = ({ dataForm, err }) => {
               {err}
             </Form.Control.Feedback>
           )}
-          </FormGroup>
-        ),
-      )}
+        </FormGroup>
+      ))}
       <Button className="w-100" variant="outline-primary" type="submit">
         {button.name}
       </Button>

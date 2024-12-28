@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const slice = createSlice({
   name: 'actualChanelId',
-  initialState: { chanelId: '1', name: 'general'},
+  initialState: { chanelId: '1', name: 'general' },
   reducers: {
     actualChanelId: (state, { payload }) => {
       state.chanelId = payload.chanelId;

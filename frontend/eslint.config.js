@@ -37,9 +37,11 @@ export default [
       'import/no-useless-path-segments': [
         'error',
         {
-          noUselessIndex: true,
+          noUselessIndex: false,
         },
       ],
+      'comma-dangle': ['error', { functions: 'ignore' }],
+      'implicit-arrow-linebreak': 'off',
     },
   },
 ];

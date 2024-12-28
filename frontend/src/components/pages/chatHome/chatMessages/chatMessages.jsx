@@ -17,6 +17,6 @@ const ChatMessages = ({ data, isLoading, chanelId }) => (
         ))
     )}
   </div>
-  );
+);
 
 export default ChatMessages;

@@ -14,10 +14,10 @@ export default configureStore({
     [messageApi.reducerPath]: messageApi.reducer,
     [chanelApi.reducerPath]: chanelApi.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware()
-  .concat([
-    messageApi.middleware,
-    chanelApi.middleware,
-  ]),
+      .concat([
+        messageApi.middleware,
+        chanelApi.middleware,
+      ]),
 });
