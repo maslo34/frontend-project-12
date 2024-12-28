@@ -45,9 +45,9 @@ const CustomModal = () => {
     dispatch(closeModal({ isShow: false }));
   };
   const handleNewActualChanel = (chanel) => {
-    const { id, name } = chanel;
+    const { channelId, name } = chanel;
     console.log(chanel);
-    dispatch(actualChanelId({ chanelId: id, name }));
+    dispatch(actualChanelId({ chanelId: channelId, name }));
   };
 
   const notify = (message) => toast.success(message);
@@ -62,12 +62,12 @@ const CustomModal = () => {
       metod: 'delit',
       title: t('modal.removeChanel'),
       body: t('modal.isDelete'),
-      query: (id) => customAxios.delete(id),
+      query: (channelId) => customAxios.delete(channelId),
     },
     editChanel: {
       metod: 'patch',
       title: t('modal.editChanel'),
-      query: (value, id) => customAxios.patch(`/${id}`, value),
+      query: (value, channelId) => customAxios.patch(`/${channelId}`, value),
     },
   };
 
@@ -86,7 +86,7 @@ const CustomModal = () => {
       console.log(value);
       const cleanChanel = leoProfanity.clean(value.name);
       fetchChanel({ name: cleanChanel }, mappingModal[type].query, id, handleNewActualChanel);
-      handleCloseModal()
+      handleCloseModal();
     },
   });
 
@@ -110,8 +110,8 @@ const CustomModal = () => {
               <Button
                 onClick={() => {
                   fetchChanel(id, mappingModal[type].query, id);
-                  handleCloseModal()
-                  id === chanelId && dispatch(actualChanelId({ chanelId: '1', name: 'general' }));
+                  handleCloseModal();
+                  if (id === chanelId) {dispatch(actualChanelId({ chanelId: '1', name: 'general' }))};
                   refetch();
                   notify(toastMessage);
                 }}

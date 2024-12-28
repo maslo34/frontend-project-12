@@ -1,15 +1,15 @@
 // обертка над аксиос axios instanse
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import i18next from './i18n';
 import { getToken } from './utils';
-import { toast } from 'react-toastify';
 
 i18next.t('my.key');
 const notify = () => toast.error(i18next.t('toastMessage.error'));
 
 export default (path) => {
   try {
-    const token = JSON.parse(window.localStorage.getItem('auth')).token;
+    const { token } = JSON.parse(window.localStorage.getItem('auth'));
     return axios.create({
       baseURL: `/api/v1/${path}`,
       headers: {
@@ -17,7 +17,7 @@ export default (path) => {
       },
     });
   } catch (e) {
-    console.log(e);
+    return e;
   }
 };
 
@@ -58,7 +58,7 @@ export const fetchChanel = async (
   payload,
   query,
   id,
-  handleNewActualChanel = 1
+  handleNewActualChanel = 1,
 ) => {
   try {
     console.log(payload, query, id);

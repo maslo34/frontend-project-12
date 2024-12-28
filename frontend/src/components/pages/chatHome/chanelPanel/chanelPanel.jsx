@@ -1,24 +1,28 @@
 import { useDispatch } from 'react-redux';
+import { Nav } from 'react-bootstrap';
+import { t } from 'i18next';
+
 import { openModal } from '../../../../slices/modalSlice.js';
 import { useGetChanelsApiQuery } from '../../../../slices/newChanelSlice.js';
 
 import ChanelButton from '../chanelButton/chanelButton.jsx';
 import ChanelHeader from '../chanelHeader/chanelHeader.jsx';
 
-import { Nav } from 'react-bootstrap';
-import { t } from 'i18next';
-
 const ChanelPanel = () => {
   const { data, error, isLoading } = useGetChanelsApiQuery();
   const dispatch = useDispatch();
   const optionsModal = (type, toastMessage, id = '', initialValue = '') => {
-    dispatch(
-      openModal({ isShow: true, type, id, initialValue, toastMessage })
-    );
+    dispatch(openModal({
+      isShow: true,
+      type,
+      id,
+      initialValue,
+      toastMessage,
+    }));
   };
 
   if (error) {
-    return;
+    return <div>{t('chatHome.error')}</div>;
   }
   return (
     <>
@@ -27,7 +31,7 @@ const ChanelPanel = () => {
         <h1>{t('chatHome.loading')}</h1>
       ) : (
         <Nav
-          as={'ul'}
+          as='ul'
           className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
         >
           {data.map((chanel) => (

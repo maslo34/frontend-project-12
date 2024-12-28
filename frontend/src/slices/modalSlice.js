@@ -1,3 +1,4 @@
+/*eslint no-param-reassign: ["error", { "props": false }]*/
 import { createSlice } from '@reduxjs/toolkit';
 
 const slice = createSlice({
@@ -13,10 +14,10 @@ const slice = createSlice({
     },
     closeModal: (state) => {
       state.isShow = false;
-      state.type = null;;
-      state.id = null;;
-      state.initialValue = null;;
-      state.toastMessage = null;;
+      state.type = null;
+      state.id = null;
+      state.initialValue = null;
+      state.toastMessage = null;
     },
   },
 });

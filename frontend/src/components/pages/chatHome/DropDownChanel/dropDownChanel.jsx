@@ -21,19 +21,15 @@ const DropDownChanel = ({
       </Button>
       <Dropdown.Toggle split variant={variant} className="border-none">
         <span className="visually-hidden">{t('chatHome.dropdownButton')}</span>
-        </Dropdown.Toggle>
-      
+      </Dropdown.Toggle>
       <Dropdown.Menu>
-      
         <Dropdown.Item onClick={() => handleModal('removeChanel', t('toastMessage.remove'), id)}>
           {t('chatHome.delete')}
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => handleModal('editChanel', t('toastMessage.edit'),id, name)}>
+        <Dropdown.Item onClick={() => handleModal('editChanel', t('toastMessage.edit'), id, name)}>
           {t('chatHome.edit')}
         </Dropdown.Item>
-        
       </Dropdown.Menu>
-      
     </Dropdown>
   );
 };

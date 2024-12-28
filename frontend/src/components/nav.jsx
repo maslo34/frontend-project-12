@@ -1,15 +1,15 @@
 import { Link, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
+import { t } from 'i18next';
+
 import { logout } from '../slices/authUserSlice';
 
 import { Container, Button } from 'react-bootstrap';
 
-import { t } from 'i18next';
+
 
 const NavBar = () => {
-  const authorizationTokenLocalStorage = JSON.parse(
-    window.localStorage.getItem('auth')
-  );
+  const authorizationTokenLocalStorage = JSON.parse(window.localStorage.getItem('auth'));
   const navigate = useNavigate();
   const dispath = useDispatch();
   const logOut = () => {

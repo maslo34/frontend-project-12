@@ -8,7 +8,13 @@ import {
 } from 'react-bootstrap';
 
 const CustomForm = ({ dataForm, err }) => {
-  const { formName, field, button, validationSchema, initialValues } = dataForm;
+  const {
+    formName,
+    field,
+    button,
+    validationSchema,
+    initialValues
+  } = dataForm;
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -20,8 +26,7 @@ const CustomForm = ({ dataForm, err }) => {
       className="col-12 col-md-7 mt-3 mt-md-0"
     >
       <h1 className="text-center mb-4">{formName}</h1>
-      {field.map((el, id) => {
-        return (
+      {field.map((el, id) => (
           <FormGroup key={el.name} className="form-floating mb-3">
             <FormControl
               id={el.name}
@@ -46,8 +51,8 @@ const CustomForm = ({ dataForm, err }) => {
               </Form.Control.Feedback>
             )}
           </FormGroup>
-        );
-      })}
+        )
+      )}
 
       <Button className="w-100" variant="outline-primary" type="submit">
         {button.name}

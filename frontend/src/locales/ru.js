@@ -36,6 +36,7 @@ const ruLocales = {
       chanel: 'Каналы',
       dropdownButton: 'Управление каналом',
       loading: 'Loading',
+      error: 'Error',
       delete: 'Удалить',
       edit: 'Переименовать',
       messages_one: 'Сообщение',

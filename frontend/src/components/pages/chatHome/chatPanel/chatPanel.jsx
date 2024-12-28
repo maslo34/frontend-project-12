@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { t } from 'i18next';
 
 import { useGetMessageApiQuery } from '../../../../slices/newMessagesSlice.js';
 
@@ -11,10 +12,9 @@ const ChatPanel = () => {
   const { data, error, isLoading } = useGetMessageApiQuery();
 
   if (error) {
-    return <></>;
+    return <div>{t('chatHome.error')}</div>;
   }
   return (
-    <>
       <div className="d-flex flex-column h-100">
         {!isLoading && (
           <ChatPanelHeader
@@ -33,7 +33,6 @@ const ChatPanel = () => {
           <FormSendMessage channelId={chanelId} />
         </div>
       </div>
-    </>
   );
 };
 

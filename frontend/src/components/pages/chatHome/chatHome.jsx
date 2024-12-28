@@ -1,13 +1,12 @@
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Col, Container, Row } from 'react-bootstrap';
 
 import { login } from '../../../slices/authUserSlice';
 import ChanelPanel from './chanelPanel/chanelPanel';
 import ChatPanel from './chatPanel/chatPanel';
 import CustomModal from '../../modal/modal';
-
-import { Col, Container, Row } from 'react-bootstrap';
 
 const ChatHome = () => {
   const navigate = useNavigate();
@@ -15,9 +14,7 @@ const ChatHome = () => {
   const { token } = useSelector((state) => state.auth);
   const modalIsShow = useSelector((state) => state.modal.isShow);
   useEffect(() => {
-    const authorizationTokenLocalStorage = JSON.parse(
-      window.localStorage.getItem('auth')
-    );
+    const authorizationTokenLocalStorage = JSON.parse(window.localStorage.getItem('auth'));
     if (!authorizationTokenLocalStorage && !token) {
       navigate('/login');
     } else if (authorizationTokenLocalStorage && !token) {

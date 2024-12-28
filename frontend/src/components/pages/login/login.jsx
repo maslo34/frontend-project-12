@@ -1,16 +1,21 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router';
+import { t } from 'i18next';
+import {
+  Card,
+  Col,
+  Container,
+  Row
+} from 'react-bootstrap';
 
 import { login } from '../../../slices/authUserSlice';
 import { fetchToken } from '../../../fetchApi';
 
-import { Card, Col, Container, Row } from 'react-bootstrap';
 import CustomForm from '../../../components/newForm';
 
 import ImageLogin from './loginImage.jpg';
 
-import { t } from 'i18next';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,8 +43,7 @@ const Login = () => {
       },
     ],
     button: {
-      submit: (value) =>
-        fetchToken(navigate, 'login', value, dispatchWrapper, hendleFetchError),
+      submit: (value) => fetchToken(navigate, 'login', value, dispatchWrapper, hendleFetchError),
       name: t('loginPage.buttonSubmit'),
     },
     validationSchema,

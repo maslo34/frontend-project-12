@@ -1,5 +1,4 @@
-import { Routes, Route } from 'react-router';
-import { BrowserRouter } from 'react-router';
+import { Routes, Route, BrowserRouter } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 
 import NotFound from './components/pages/NotFound';
@@ -9,8 +8,7 @@ import SignupForm from './components/pages/signup/signupForm';
 
 import NavBar from './components/nav';
 
-const RoutesApp = () => {
-  return (
+const RoutesApp = () => (
     <BrowserRouter>
       <NavBar />
       <Routes>
@@ -22,6 +20,5 @@ const RoutesApp = () => {
       <ToastContainer />
     </BrowserRouter>
   );
-};
 
 export default RoutesApp;

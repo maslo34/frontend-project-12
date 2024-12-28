@@ -1,6 +1,7 @@
+/*eslint no-param-reassign: ["error", { "props": false }]*/
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { io } from 'socket.io-client';
-import instanceAxios from './../fetchApi.js';
+import instanceAxios from '../fetchApi.js';
 
 export const chanelApi = createApi({
   reducerPath: 'chanelApi',
@@ -18,7 +19,7 @@ export const chanelApi = createApi({
       },
       async onCacheEntryAdded(
         arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
       ) {
         const socket = io('/');
         try {
@@ -29,22 +30,16 @@ export const chanelApi = createApi({
               draft.push(payload);
             });
           });
-          socket.on('removeChannel', (payload) => {
-            console.log(payload);
-            updateCachedData((draft) => {
+          socket.on('removeChannel', (payload) => updateCachedData((draft) => {
               return draft.filter((element) => element.id !== payload.id);
-            });
-          });
-          socket.on('renameChannel', (payload) => {
-            console.log(payload);
-            updateCachedData((draft) => {
+            })
+          );
+          socket.on('renameChannel', (payload) => updateCachedData((draft) => {
               return draft.forEach((el) => {
-                if (el.id === payload.id) {
-                  return (el.name = payload.name);
-                }
+                if (el.id === payload.id) { el.name = payload.name }
               });
-            });
-          });
+            })
+          );
         } catch {
           await cacheEntryRemoved;
           socket.close();

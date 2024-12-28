@@ -1,18 +1,18 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { io } from 'socket.io-client';
-import instanceAxios from './../fetchApi.js';
+import instanceAxios from '../fetchApi.js';
 
 export const messageApi = createApi({
   reducerPath: 'messageApi',
   endpoints: (builder) => ({
     getMessageApi: builder.query({
       queryFn: async () => {
-        const fetchMessage = instanceAxios('messages')
+        const fetchMessage = instanceAxios('messages');
         try {
-          const request = await fetchMessage.get()
+          const request = await fetchMessage.get();
           return { data: request.data };
         } catch (error) {
-          console.log(error)
+          console.log(error);
           return { error };
         }
       },

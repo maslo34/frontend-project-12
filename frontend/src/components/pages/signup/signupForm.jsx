@@ -3,14 +3,19 @@ import * as Yup from 'yup';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import {
+  Card,
+  Col,
+  Container,
+  Row
+} from 'react-bootstrap';
+
+import { t } from 'i18next';
 
 import { login } from '../../../slices/authUserSlice';
 import { fetchToken } from '../../../fetchApi';
 
 import CustomForm from '../../newForm';
-import { Card, Col, Container, Row } from 'react-bootstrap';
-
-import { t } from 'i18next';
 
 import ImageSignUp from './signUpImage.jpg';
 
@@ -53,13 +58,12 @@ const SignupForm = () => {
       },
     ],
     button: {
-      submit: (value) =>
-        fetchToken(
+      submit: (value) => fetchToken(
           navigate,
           'signup',
           value,
           dispatchWrapper,
-          hendleFetchError
+          hendleFetchError,
         ),
       name: t('signupPage.buttonSubmit'),
     },
