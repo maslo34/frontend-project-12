@@ -6,6 +6,7 @@ const slice = createSlice({
   initialState: { chanelId: '1', name: 'general'},
   reducers: {
     actualChanelId: (state, { payload }) => {
+      console.log(payload.chanelId)
       state.chanelId = payload.chanelId;
       state.name = payload.name;
     },

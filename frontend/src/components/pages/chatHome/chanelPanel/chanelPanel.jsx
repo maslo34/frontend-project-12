@@ -11,11 +11,11 @@ import ChanelHeader from '../chanelHeader/chanelHeader.jsx';
 const ChanelPanel = () => {
   const { data, error, isLoading } = useGetChanelsApiQuery();
   const dispatch = useDispatch();
-  const optionsModal = (type, toastMessage, id = '', initialValue = '') => {
+  const optionsModal = (type, toastMessage, idChanel = '', initialValue = '') => {
     dispatch(openModal({
       isShow: true,
       type,
-      id,
+      idChanel,
       initialValue,
       toastMessage,
     }));

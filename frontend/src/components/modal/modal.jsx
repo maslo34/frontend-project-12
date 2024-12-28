@@ -19,7 +19,6 @@ import instanceAxios, { fetchChanel } from '../../fetchApi.js';
 const CustomModal = () => {
   const refContainer = useRef('');
   useEffect(() => {
-    console.log(refContainer.current);
     refContainer.current.focus();
   }, []);
 
@@ -29,15 +28,14 @@ const CustomModal = () => {
   const { data, isLoading } = useGetChanelsApiQuery();
   const { refetch } = useGetMessageApiQuery();
 
-  const modalOption = useSelector((State) => State.modal);
   const { chanelId } = useSelector((State) => State.actualChanelId);
   const {
     isShow,
     type,
-    id,
+    idChanel,
     initialValue,
     toastMessage,
-  } = modalOption;
+  } = useSelector((State) => State.modal);
 
   const arrayUniqChanel = isLoading ? [] : data.map((el) => el.name);
 
@@ -45,9 +43,9 @@ const CustomModal = () => {
     dispatch(closeModal({ isShow: false }));
   };
   const handleNewActualChanel = (chanel) => {
-    const { channelId, name } = chanel;
+    const { id, name } = chanel;
     console.log(chanel);
-    dispatch(actualChanelId({ chanelId: channelId, name }));
+    dispatch(actualChanelId({ chanelId: id, name }));
   };
 
   const notify = (message) => toast.success(message);
@@ -56,7 +54,7 @@ const CustomModal = () => {
     addChanel: {
       metod: 'post',
       title: t('modal.addChanel'),
-      query: (value) => customAxios.post(id, value),
+      query: (value) => customAxios.post(idChanel, value),
     },
     removeChanel: {
       metod: 'delit',
@@ -83,9 +81,8 @@ const CustomModal = () => {
     initialValues: { name: initialValue },
     validationSchema,
     onSubmit: (value) => {
-      console.log(value);
       const cleanChanel = leoProfanity.clean(value.name);
-      fetchChanel({ name: cleanChanel }, mappingModal[type].query, id, handleNewActualChanel);
+      fetchChanel({ name: cleanChanel }, mappingModal[type].query, idChanel, handleNewActualChanel);
       handleCloseModal();
     },
   });
@@ -109,9 +106,9 @@ const CustomModal = () => {
               </Button>
               <Button
                 onClick={() => {
-                  fetchChanel(id, mappingModal[type].query, id);
+                  fetchChanel(idChanel, mappingModal[type].query, idChanel);
                   handleCloseModal();
-                  if (id === chanelId) {dispatch(actualChanelId({ chanelId: '1', name: 'general' }))};
+                  if (idChanel === chanelId) {dispatch(actualChanelId({ chanelId: '1', name: 'general' }))};
                   refetch();
                   notify(toastMessage);
                 }}

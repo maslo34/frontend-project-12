@@ -12,7 +12,7 @@ const ChanelButton = ({ chanel, handleModal }) => {
   const handleClick = (chanelId, chanelName) => {
     dispatch(actualChanelId({ chanelId, name: chanelName }));
   };
-
+  // console.log(id, chanelId)
   const variant = id === chanelId ? 'secondary' : 'light';
   return (
       !removable ? (
