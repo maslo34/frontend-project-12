@@ -12,7 +12,7 @@ import {
 import { login } from '../../../slices/authUserSlice';
 import { fetchToken } from '../../../fetchApi';
 
-import CustomForm from '../../../components/newForm';
+import CustomForm from '../../newForm';
 
 import ImageLogin from './loginImage.jpg';
 

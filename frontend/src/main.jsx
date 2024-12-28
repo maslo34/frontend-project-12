@@ -18,5 +18,5 @@ createRoot(document.getElementById('root')).render(
         <RoutesApp />
       </App>
     </Provider>
-  </StrictMode>
+  </StrictMode>,
 );
