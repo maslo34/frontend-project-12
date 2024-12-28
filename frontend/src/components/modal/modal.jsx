@@ -32,7 +32,7 @@ const CustomModal = () => {
   const {
     isShow,
     type,
-    idChanel,
+    id,
     initialValue,
     toastMessage,
   } = useSelector((State) => State.modal);
@@ -54,7 +54,7 @@ const CustomModal = () => {
     addChanel: {
       metod: 'post',
       title: t('modal.addChanel'),
-      query: (value) => customAxios.post(idChanel, value),
+      query: (value) => customAxios.post(id, value),
     },
     removeChanel: {
       metod: 'delit',
@@ -82,7 +82,7 @@ const CustomModal = () => {
     validationSchema,
     onSubmit: (value) => {
       const cleanChanel = leoProfanity.clean(value.name);
-      fetchChanel({ name: cleanChanel }, mappingModal[type].query, idChanel, handleNewActualChanel);
+      fetchChanel({ name: cleanChanel }, mappingModal[type].query, id, handleNewActualChanel);
       handleCloseModal();
     },
   });
@@ -106,9 +106,9 @@ const CustomModal = () => {
               </Button>
               <Button
                 onClick={() => {
-                  fetchChanel(idChanel, mappingModal[type].query, idChanel);
+                  fetchChanel(id, mappingModal[type].query, id);
                   handleCloseModal();
-                  if (idChanel === chanelId) {dispatch(actualChanelId({ chanelId: '1', name: 'general' }))};
+                  if (id === chanelId) {dispatch(actualChanelId({ chanelId: '1', name: 'general' }))};
                   refetch();
                   notify(toastMessage);
                 }}

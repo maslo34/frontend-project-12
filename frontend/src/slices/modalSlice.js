@@ -8,14 +8,14 @@ const slice = createSlice({
     openModal: (state, { payload }) => {
       state.isShow = payload.isShow;
       state.type = payload.type;
-      state.idChanel = payload.id;
+      state.id = payload.id;
       state.initialValue = payload.initialValue;
       state.toastMessage = payload.toastMessage;
     },
     closeModal: (state) => {
       state.isShow = false;
       state.type = null;
-      state.idChanel = null;
+      state.id = null;
       state.initialValue = null;
       state.toastMessage = null;
     },
