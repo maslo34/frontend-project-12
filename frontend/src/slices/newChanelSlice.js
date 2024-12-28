@@ -33,14 +33,14 @@ export const chanelApi = createApi({
           socket.on('removeChannel', (payload) => {
             updateCachedData((draft) => {
               draft.filter((element) => {
-                element.id !== payload.id
+                return element.id !== payload.id;
               });
             });
           });
           socket.on('renameChannel', (payload) => {
             updateCachedData((draft) => {
               draft.forEach((el) => {
-                if (el.id === payload.id) { el.name = payload.name };
+                if (el.id === payload.id) { el.name = payload.name; }
               });
             });
           });

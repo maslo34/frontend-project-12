@@ -18,7 +18,7 @@ export const messageApi = createApi({
       },
       async onCacheEntryAdded(
         arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved, }
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
       ) {
         const socket = io('/');
         try {

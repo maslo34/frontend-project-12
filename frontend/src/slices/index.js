@@ -15,6 +15,5 @@ export default configureStore({
     [chanelApi.reducerPath]: chanelApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat([messageApi.middleware, chanelApi.middleware]),
+    getDefaultMiddleware().concat([messageApi.middleware, chanelApi.middleware]),
 });
