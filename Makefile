@@ -22,3 +22,5 @@ develop:
 build:
 	rm -rf frontend/dist
 	npm run build
+v:
+	git add .
